@@ -44,6 +44,10 @@ Summary
 History Log
 =============
 
+- 1.0.3 -- 2021-07-06
+
+    - update conception notes, fix example typo
+  
 - 1.0.2 -- 2021-07-06
 
     - update conception notes, update example

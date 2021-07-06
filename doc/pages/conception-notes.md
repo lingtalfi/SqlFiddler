@@ -73,7 +73,7 @@ Ok, enough talking, here is how it works (example from my code):
                 "newest" => 'i.post_datetime desc',
                 "price_increasing" => 'i.price_in_euro asc',
                 "price_decreasing" => 'i.price_in_euro desc',
-                "avg_rating" => 'i.avg_rating desc',
+                "avg_rating" => 't2.avg_rating desc',
             ])
         ;
 
