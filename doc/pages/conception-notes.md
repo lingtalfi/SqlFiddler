@@ -93,7 +93,7 @@ from lks_item i
     
     
     
-         inner join (
+         left join (
     select item_id,
            rating,
            count(*) as nb_ratings
@@ -102,7 +102,7 @@ from lks_item i
 ) as t on i.id = t.item_id
 
 
-         inner join (
+         left join (
     select item_id,
            avg(rating) as avg_rating
     from lks_user_rates_item
