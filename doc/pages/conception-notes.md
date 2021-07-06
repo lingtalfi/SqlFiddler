@@ -139,6 +139,10 @@ The marker value is set with the call to the getSearchExpression method.
 
 
 
+Notice that all user values are either defined, or set to null.
+
+This is a convention used by the fiddler. It makes it easy to define the user parameters.
+
 
 
 
