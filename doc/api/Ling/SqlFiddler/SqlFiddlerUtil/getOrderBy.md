@@ -57,7 +57,7 @@ Exceptions thrown
 
 Source Code
 ===========
-See the source code for method [SqlFiddlerUtil::getOrderBy](https://github.com/lingtalfi/SqlFiddler/blob/master/SqlFiddlerUtil.php#L129-L138)
+See the source code for method [SqlFiddlerUtil::getOrderBy](https://github.com/lingtalfi/SqlFiddler/blob/master/SqlFiddlerUtil.php#L197-L206)
 
 
 See Also

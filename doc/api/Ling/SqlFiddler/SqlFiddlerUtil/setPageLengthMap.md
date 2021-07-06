@@ -49,7 +49,7 @@ Returns [SqlFiddlerUtil](https://github.com/lingtalfi/SqlFiddler/blob/master/doc
 
 Source Code
 ===========
-See the source code for method [SqlFiddlerUtil::setPageLengthMap](https://github.com/lingtalfi/SqlFiddler/blob/master/SqlFiddlerUtil.php#L85-L89)
+See the source code for method [SqlFiddlerUtil::setPageLengthMap](https://github.com/lingtalfi/SqlFiddler/blob/master/SqlFiddlerUtil.php#L129-L133)
 
 
 See Also

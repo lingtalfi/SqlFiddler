@@ -27,12 +27,13 @@ class <span class="pl-k">SqlFiddlerUtil</span>  {
 - Properties
     - private string [$searchExpression](#property-searchExpression) ;
     - private string [$searchExpressionMarkerName](#property-searchExpressionMarkerName) ;
+    - private string [$searchExpressionMode](#property-searchExpressionMode) ;
     - private array [$orderByMap](#property-orderByMap) ;
     - private array [$pageLengthMap](#property-pageLengthMap) ;
 
 - Methods
     - public [__construct](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/__construct.md)() : void
-    - public [setSearchExpression](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/setSearchExpression.md)(string $searchExpression, string $markerName) : [SqlFiddlerUtil](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil.md)
+    - public [setSearchExpression](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/setSearchExpression.md)(string $searchExpression, string $markerName, ?string $searchMode = %%) : [SqlFiddlerUtil](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil.md)
     - public [setOrderByMap](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/setOrderByMap.md)(array $orderByMap) : [SqlFiddlerUtil](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil.md)
     - public [setPageLengthMap](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/setPageLengthMap.md)(array $pageLengthMap) : [SqlFiddlerUtil](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil.md)
     - public [getSearchExpression](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/getSearchExpression.md)(?string $userExpression = null, ?array &$markers = []) : string
@@ -57,6 +58,12 @@ Properties
 - <span id="property-searchExpressionMarkerName"><b>searchExpressionMarkerName</b></span>
 
     This property holds the searchExpressionMarkerName for this instance.
+    
+    
+
+- <span id="property-searchExpressionMode"><b>searchExpressionMode</b></span>
+
+    This property holds the searchExpressionMode for this instance.
     
     
 

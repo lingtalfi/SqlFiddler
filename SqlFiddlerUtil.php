@@ -25,6 +25,12 @@ class SqlFiddlerUtil
     private string $searchExpressionMarkerName;
 
     /**
+     * This property holds the searchExpressionMode for this instance.
+     * @var string
+     */
+    private string $searchExpressionMode;
+
+    /**
      * This property holds the orderByMap for this instance.
      * You must define the default value using the _default key.
      * @var array
@@ -45,6 +51,7 @@ class SqlFiddlerUtil
     {
         $this->searchExpression = '1';
         $this->searchExpressionMarkerName = '';
+        $this->searchExpressionMode = '%%';
         $this->orderByMap = [];
         $this->pageLengthMap = [];
     }
@@ -53,14 +60,51 @@ class SqlFiddlerUtil
     /**
      * Sets the searchExpression.
      *
+     *
+     * The markerName will be injected in the markers automatically when you call the getSearchExpression method.
+     *
+     *
+     *
+     * The injected value is decorated, depending on the search mode, which can be one of the followings:
+     *
+     * - %%: %like%
+     * - %like%: %like%
+     *
+     * - %: %like
+     * - %like: %like
+     * - %s: %like
+     *
+     * - s%: like%
+     * - like%: like%
+     *
+     * - none: (the value of the marker is exactly what you pass to the getSearchExpression)
+     * - n: alias of none
+     *
+     *
+     * The default value is %%, assuming that you search using the %like% mode.
+     *
+     *
+     *
+     *
+     *
+     * Note: by default, for all "like" modes (i.e. a mode containing %), we escape the % and _ chars from the value, assuming that you are using mysql (those are special search symbols in mysql),
+     * and assuming that your search value don't use those wildcards.
+     *
+     *
+     *
+     *
      * @param string $searchExpression
      * @param string $markerName
+     * @param string $searchMode
+     *
+     *
      * @return $this
      */
-    public function setSearchExpression(string $searchExpression, string $markerName): static
+    public function setSearchExpression(string $searchExpression, string $markerName, string $searchMode = '%%'): static
     {
         $this->searchExpression = $searchExpression;
         $this->searchExpressionMarkerName = $markerName;
+        $this->searchExpressionMode = $searchMode;
         return $this;
     }
 
@@ -111,6 +155,30 @@ class SqlFiddlerUtil
         if ('' === trim($userExpression)) {
             return $defaultReturn;
         }
+
+        switch ($this->searchExpressionMode) {
+            case "%%":
+            case "%like%":
+            case "%s%":
+                $userExpression = '%' . addcslashes($userExpression, '%_') . '%';
+                break;
+            case "%":
+            case "%like":
+            case "%s":
+                $userExpression = '%' . addcslashes($userExpression, '%_');
+                break;
+            case "s%":
+            case "like%":
+                $userExpression = addcslashes($userExpression, '%_') . '%';
+                break;
+            case "n":
+            case "none":
+                break;
+            default:
+                throw new SqlFiddlerException("Unknown searchMode: $this->searchExpressionMode.");
+                break;
+        }
+
         $markers[':' . $this->searchExpressionMarkerName] = $userExpression;
         return $this->searchExpression;
     }
