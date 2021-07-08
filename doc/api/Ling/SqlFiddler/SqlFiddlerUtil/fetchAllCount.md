@@ -77,7 +77,7 @@ Exceptions thrown
 
 Source Code
 ===========
-See the source code for method [SqlFiddlerUtil::fetchAllCount](https://github.com/lingtalfi/SqlFiddler/blob/master/SqlFiddlerUtil.php#L289-L308)
+See the source code for method [SqlFiddlerUtil::fetchAllCount](https://github.com/lingtalfi/SqlFiddler/blob/master/SqlFiddlerUtil.php#L289-L313)
 
 
 See Also

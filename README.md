@@ -44,6 +44,10 @@ Summary
 History Log
 =============
 
+- 1.0.6 -- 2021-07-08
+
+    - fix SqlFiddlerUtil->fetchAllCount method not implemented useWrap feature
+  
 - 1.0.5 -- 2021-07-08
 
     - add SqlFiddlerUtil->fetchAllCount method

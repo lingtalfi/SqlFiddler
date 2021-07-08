@@ -294,6 +294,11 @@ class SqlFiddlerUtil
         $q2 = preg_replace('!limit .*-- ?endlimit!isU', '', $q2);
 
 
+        if(true === $useWrap){
+            $q2 = "select count(*) as count from ($q2) as tmp";
+        }
+
+
         $res = $pdoWrapper->fetch($q2, $markers, \PDO::FETCH_ASSOC);
         if (false !== $res) {
             $count = (int)$res['count'];
