@@ -3,6 +3,7 @@
 
 namespace Ling\SqlFiddler;
 
+use Ling\SimplePdoWrapper\SimplePdoWrapperInterface;
 use Ling\SqlFiddler\Exception\SqlFiddlerException;
 
 /**
@@ -256,6 +257,54 @@ class SqlFiddlerUtil
             return (int)$this->pageLengthMap[$userPageLength];
         }
         throw new SqlFiddlerException("No value found in the pageLengthMap map for user choice $userPageLength.");
+    }
+
+
+    /**
+     * Returns an array containing the rows of the prepared query and the total number of rows when limit is removed from that query.
+     *
+     * The returned array has the following structure:
+     *
+     * - 0: the rows of the prepared query
+     * - 1: the total number of rows of that query when limit is removed
+     *
+     * See the @page(SqlFiddler conception notes) for more details about the prepared query.
+     *
+     * If your query uses a "group by" clause, you might want to set the useWrap flag to true.
+     * The useWrap flag wraps the whole query with an extra "select count(*) from ($yourQuery) as tmp" request,
+     * which might/might not be what you want when using group by statements.
+     *
+     *
+     *
+     *
+     *
+     *
+     * @param SimplePdoWrapperInterface $pdoWrapper
+     * @param string $preparedQuery
+     * @param array $markers
+     * @param bool $useWrap
+     * @return array
+     * @throws \Exception
+     */
+    public function fetchAllCount(SimplePdoWrapperInterface $pdoWrapper, string $preparedQuery, array $markers = [], bool $useWrap = false): array
+    {
+
+
+        $q2 = preg_replace('!select .*-- ?endselect!isU', 'select count(*) as count', $preparedQuery);
+        $q2 = preg_replace('!limit .*-- ?endlimit!isU', '', $q2);
+
+
+        $res = $pdoWrapper->fetch($q2, $markers, \PDO::FETCH_ASSOC);
+        if (false !== $res) {
+            $count = (int)$res['count'];
+            $rows = $pdoWrapper->fetchAll($preparedQuery, $markers, \PDO::FETCH_ASSOC);
+            return [
+                $rows,
+                $count,
+            ];
+        } else {
+            throw new SqlFiddlerException("Invalid count query: $q2");
+        }
     }
 
 }

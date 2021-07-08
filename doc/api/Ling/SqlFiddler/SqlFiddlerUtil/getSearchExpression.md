@@ -57,7 +57,7 @@ Returns string.
 
 Source Code
 ===========
-See the source code for method [SqlFiddlerUtil::getSearchExpression](https://github.com/lingtalfi/SqlFiddler/blob/master/SqlFiddlerUtil.php#L149-L184)
+See the source code for method [SqlFiddlerUtil::getSearchExpression](https://github.com/lingtalfi/SqlFiddler/blob/master/SqlFiddlerUtil.php#L150-L185)
 
 
 See Also

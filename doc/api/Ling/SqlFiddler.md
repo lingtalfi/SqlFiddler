@@ -1,6 +1,6 @@
 Ling/SqlFiddler
 ================
-2021-07-06 --> 2021-07-06
+2021-07-06 --> 2021-07-08
 
 
 
@@ -18,7 +18,11 @@ Table of contents
     - [SqlFiddlerUtil::getOrderBy](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/getOrderBy.md) &ndash; Returns the "order by" snippet to insert in your query.
     - [SqlFiddlerUtil::getPageOffset](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/getPageOffset.md) &ndash; Returns the page offset to insert in your query.
     - [SqlFiddlerUtil::getPageLength](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/getPageLength.md) &ndash; Returns the "page length" to insert in your query.
+    - [SqlFiddlerUtil::fetchAllCount](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/fetchAllCount.md) &ndash; Returns an array containing the rows of the prepared query and the total number of rows when limit is removed from that query.
 
 
+Dependencies
+============
+- [SimplePdoWrapper](https://github.com/lingtalfi/SimplePdoWrapper)
 
 

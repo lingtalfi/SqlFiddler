@@ -1,6 +1,6 @@
 SqlFiddler, conception notes
 ================
-2021-07-06
+2021-07-06 -> 2021-07-08
 
 
 A tool to help when writing sql queries where the user can opt-in some parts.
@@ -155,3 +155,86 @@ Here are a few recommendations when Working with the fiddler:
 
 - always wrap your core query with double quotes, so that you can easily inject php variables in your query 
 - always use pdo markers (if possible) in your search expression, to avoid sql injection  
+
+
+
+Prepared query, two queries in one
+----------
+2021-07-08
+
+
+Note that at the moment, this section only applies to mysql dbms.
+
+
+Another pattern that I saw when writing queries for the front end is that in addition to the rows, I often need the **total number of rows**.
+
+This number is computed by executing the query, but with the limit part (in mysql) removed.
+
+The **total number of rows** is used to create pagination, and to give information about the current rows in the page (i.e., 25-50 of 300 results).
+
+So we provide a **fetchAllCount** method, which requires a **prepared query**, and returns both the rows and the **total number of rows**.
+
+A **prepared query** is a query where the select part and the limit part (in mysql) are isolated, so that the fetchAllCount method can replace/remove them and to its job.
+
+To isolate the select part, we add the following comment after the select part: 
+
+- **-- endselect**
+
+and the following comment after the limit part:
+
+- **-- endlimit**
+
+
+Like this for instance:
+
+
+```sql
+select 
+
+        i.id, i.label, i.reference, i.price_in_euro, i.screenshots,
+        a.label as author_name,
+       
+       group_concat(concat(t.rating, ':', t.nb_ratings) order by t.rating separator ', ') as ratings,
+       
+       t2.avg_rating, t2.nb_ratings
+
+        -- endselect
+
+from lks_item i
+    
+    
+    
+         inner join (
+    select item_id,
+           rating,
+           count(*) as nb_ratings
+    from lks_user_rates_item
+    group by rating, item_id
+) as t on i.id = t.item_id
+
+
+         inner join (
+    select item_id,
+           avg(rating) as avg_rating,
+           count(*) as nb_ratings
+    from lks_user_rates_item
+    group by item_id
+) as t2 on i.id = t2.item_id
+
+    inner join lks_author a on i.author_id = a.id
+
+where 
+      i.status = '$status'
+      and i.item_type IN ($sItemTypes)
+      and $sSearch
+
+group by i.id
+order by $sOrderBy
+limit $iPage, $pageLength -- endlimit
+
+```
+
+
+
+
+

@@ -46,7 +46,7 @@ Returns void.
 
 Source Code
 ===========
-See the source code for method [SqlFiddlerUtil::__construct](https://github.com/lingtalfi/SqlFiddler/blob/master/SqlFiddlerUtil.php#L50-L57)
+See the source code for method [SqlFiddlerUtil::__construct](https://github.com/lingtalfi/SqlFiddler/blob/master/SqlFiddlerUtil.php#L51-L58)
 
 
 See Also

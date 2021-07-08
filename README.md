@@ -1,6 +1,6 @@
 SqlFiddler
 ===========
-2021-07-06
+2021-07-06 -> 2021-07-08
 
 
 
@@ -44,6 +44,10 @@ Summary
 History Log
 =============
 
+- 1.0.5 -- 2021-07-08
+
+    - add SqlFiddlerUtil->fetchAllCount method
+  
 - 1.0.4 -- 2021-07-06
 
     - update SqlFiddlerUtil->setSearchExpression, now accepts search modes
