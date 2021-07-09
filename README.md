@@ -1,6 +1,6 @@
 SqlFiddler
 ===========
-2021-07-06 -> 2021-07-08
+2021-07-06 -> 2021-07-09
 
 
 
@@ -44,6 +44,11 @@ Summary
 History Log
 =============
 
+- 1.0.7 -- 2021-07-09
+
+    - add SqlFiddlerUtil-fetchAllCountInfo method
+    - fix SqlFiddlerUtil->getPageOffset returning an absurd number
+  
 - 1.0.6 -- 2021-07-08
 
     - fix SqlFiddlerUtil->fetchAllCount method not implemented useWrap feature

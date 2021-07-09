@@ -4,7 +4,7 @@
 
 The SqlFiddlerUtil class
 ================
-2021-07-06 --> 2021-07-08
+2021-07-06 --> 2021-07-09
 
 
 
@@ -38,9 +38,10 @@ class <span class="pl-k">SqlFiddlerUtil</span>  {
     - public [setPageLengthMap](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/setPageLengthMap.md)(array $pageLengthMap) : [SqlFiddlerUtil](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil.md)
     - public [getSearchExpression](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/getSearchExpression.md)(?string $userExpression = null, ?array &$markers = []) : string
     - public [getOrderBy](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/getOrderBy.md)(?string $userChoice = null) : string
-    - public [getPageOffset](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/getPageOffset.md)(?string $userPage = null) : int
+    - public [getPageOffset](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/getPageOffset.md)(int $userPage, int $pageLength) : int
     - public [getPageLength](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/getPageLength.md)(?string $userPageLength = null) : int
     - public [fetchAllCount](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/fetchAllCount.md)(Ling\SimplePdoWrapper\SimplePdoWrapperInterface $pdoWrapper, string $preparedQuery, ?array $markers = [], ?bool $useWrap = false) : array
+    - public [fetchAllCountInfo](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/fetchAllCountInfo.md)(Ling\SimplePdoWrapper\SimplePdoWrapperInterface $pdoWrapper, string $preparedQuery, array $markers, int $desiredPage, int $pageLength, ?bool $useWrap = false) : array
 
 }
 
@@ -95,6 +96,7 @@ Methods
 - [SqlFiddlerUtil::getPageOffset](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/getPageOffset.md) &ndash; Returns the page offset to insert in your query.
 - [SqlFiddlerUtil::getPageLength](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/getPageLength.md) &ndash; Returns the "page length" to insert in your query.
 - [SqlFiddlerUtil::fetchAllCount](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/fetchAllCount.md) &ndash; Returns an array containing the rows of the prepared query and the total number of rows when limit is removed from that query.
+- [SqlFiddlerUtil::fetchAllCountInfo](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/fetchAllCountInfo.md) &ndash; Returns an array of information about the given query.
 
 
 

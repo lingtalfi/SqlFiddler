@@ -16,7 +16,7 @@ Description
 ================
 
 
-public [SqlFiddlerUtil::getPageOffset](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/getPageOffset.md)(?string $userPage = null) : int
+public [SqlFiddlerUtil::getPageOffset](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/getPageOffset.md)(int $userPage, int $pageLength) : int
 
 
 
@@ -41,6 +41,10 @@ Parameters
 
     
 
+- pageLength
+
+    
+
 
 Return values
 ================
@@ -56,7 +60,7 @@ Returns int.
 
 Source Code
 ===========
-See the source code for method [SqlFiddlerUtil::getPageOffset](https://github.com/lingtalfi/SqlFiddler/blob/master/SqlFiddlerUtil.php#L224-L235)
+See the source code for method [SqlFiddlerUtil::getPageOffset](https://github.com/lingtalfi/SqlFiddler/blob/master/SqlFiddlerUtil.php#L225-L234)
 
 
 See Also

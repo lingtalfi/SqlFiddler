@@ -1,6 +1,6 @@
 SqlFiddler, conception notes
 ================
-2021-07-06 -> 2021-07-08
+2021-07-06 -> 2021-07-09
 
 
 A tool to help when writing sql queries where the user can opt-in some parts.
@@ -233,6 +233,64 @@ order by $sOrderBy
 limit $iPage, $pageLength -- endlimit
 
 ```
+
+
+
+
+
+fetchAllCountInfo method
+----------
+2021-07-09
+
+
+The **fetchAllCountInfo** method is the big sister of the **fetchAllCount** method.
+
+Where **fetchAllCount** was more of a low-level tool, the **fetchAllCountInfo** method feels more like a high level tool.
+
+The main difference lies in that the **fetchAllCountInfo** method returns you with most of the information that you
+need for your pagination system.
+
+It returns the following entries:
+
+- nbPages: int, the total number of pages
+- desiredPage: int, the desired page, as given. This is designed to be the user input (i.e., not trustable).
+- realPage: int, the "fixed" page number, which is basically a number between 1 and the maximum number of pages.
+    This can help you decide what you want to do when the user tries an "out of range" page (i.e., whether to display
+    an error page, or to display the closest existing page for instance).
+- nbItems: int, the number of items returned by the query
+- nbItemsTotal: int, the number of items returned by the query in limitless mode.
+        That is, the same query, without the limit portion, and possibly an extra count wrapper around it if you use "group by"
+        in your query. Note: whether to add the extra-wrap is your responsibility, using the useWrap flag.
+- firstItemIndex: int, the index of the first item of the current page.
+        The returned value ranges from 1 to $nbItemsTotal.
+- lastItemIndex: int, the index of the last item of the current page. This number takes into account when you're on the last
+        page and the number of items doesn't fill the page length completely.
+        So for instance if your pageLength is 20, you usually have a first/last index range looking like this:
+        - 1/20
+        - 21/40
+        - 41/60
+        - ...
+        But on the last page, sometimes the lastItemIndex can be lower than the pageLength, and give your something like this for instance:
+        - 41/46  
+- rows: array, the rows returned by the "fixed" query. That is, using the realPage number instead of the desired page.
+        Note that if the desiredPage doesn't match the realPage, this means that the "non-fixed" query returns an empty array by definition.
+        You can then decide whether to display the "fixed" rows returned by this property, or the empty array (based on whether desiredPage=realPage).
+
+
+So as you can see, the **fetchAllCountInfo** method is more sophisticated than its little sister,
+and gives you more options as to how to handle out-of-range page numbers.
+
+To make it easier for development, we call the return of this method the **list useful information**.
+
+
+
+The list useful information
+-----------
+2021-07-09
+
+
+The **list useful information** is a word that describes the return of the [fetchAllCountInfo](#fetchallcountinfo-method) method.
+
 
 
 

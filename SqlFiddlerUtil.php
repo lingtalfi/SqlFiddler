@@ -218,20 +218,19 @@ class SqlFiddlerUtil
      * If the result is below 0, it returns 0.
      *
      *
-     * @param string|null $userPage
+     * @param int $userPage
+     * @param int $pageLength
      * @return int
      */
-    public function getPageOffset(string $userPage = null): int
+    public function getPageOffset(int $userPage, int $pageLength): int
     {
-        if (null === $userPage) {
-            return 0;
+        // at this point, we don't know the total number of rows, and so we don't know the total number of pages,
+        // so we can only limit by the bottom, not the top.
+        if ($userPage < 1) {
+            $userPage = 1;
         }
-        $userPage = (int)$userPage;
-        $userPage--;
-        if ($userPage < 0) {
-            $userPage = 0;
-        }
-        return $userPage;
+
+        return ($userPage - 1) * $pageLength;
     }
 
     /**
@@ -294,7 +293,7 @@ class SqlFiddlerUtil
         $q2 = preg_replace('!limit .*-- ?endlimit!isU', '', $q2);
 
 
-        if(true === $useWrap){
+        if (true === $useWrap) {
             $q2 = "select count(*) as count from ($q2) as tmp";
         }
 
@@ -306,6 +305,96 @@ class SqlFiddlerUtil
             return [
                 $rows,
                 $count,
+            ];
+        } else {
+            throw new SqlFiddlerException("Invalid count query: $q2");
+        }
+    }
+
+
+    /**
+     *
+     * Returns an array of information about the given query.
+     *
+     * The returned information looks like this:
+     *
+     * - nbPages: int
+     * - desiredPage: int
+     * - realPage: int
+     * - nbItems: int
+     * - nbItemsTotal: int
+     * - firstItemIndex: int
+     * - lastItemIndex: int
+     * - rows: array
+     *
+     *
+     * See more details in the @page(SqlFiddler conception notes).
+     *
+     * Note that the limit portion is rewritten entirely by this function, based on the given page/pageLength.
+     * In other words, it doesn't matter what you have in your limit clause in the given query.
+     *
+     *
+     * @param SimplePdoWrapperInterface $pdoWrapper
+     * @param string $preparedQuery
+     * @param array $markers
+     * @param int $desiredPage
+     * @param int $pageLength
+     * @param bool $useWrap
+     * @return array
+     * @throws \Exception
+     */
+    public function fetchAllCountInfo(SimplePdoWrapperInterface $pdoWrapper, string $preparedQuery, array $markers, int $desiredPage, int $pageLength, bool $useWrap = false): array
+    {
+        $q2 = preg_replace('!select .*-- ?endselect!isU', 'select count(*) as count', $preparedQuery);
+        $q2 = preg_replace('!limit .*-- ?endlimit!isU', '', $q2);
+
+
+        if (true === $useWrap) {
+            $q2 = "select count(*) as count from ($q2) as tmp";
+        }
+
+
+        $res = $pdoWrapper->fetch($q2, $markers, \PDO::FETCH_ASSOC);
+        if (false !== $res) {
+            $nbItemsTotal = (int)$res['count'];
+
+
+            $nbPages = (int)ceil($nbItemsTotal / $pageLength);
+            $realPage = $desiredPage;
+            if ($realPage < 1) {
+                $realPage = 1;
+            }
+            if ($realPage > $nbPages) {
+                $realPage = $nbPages;
+            }
+
+            $offset = ($realPage - 1) * $pageLength;
+
+            $limit = "$offset, $pageLength";
+
+
+            $q1 = preg_replace('!limit .*-- ?endlimit!isU', "limit $limit", $preparedQuery);
+            $rows = $pdoWrapper->fetchAll($q1, $markers, \PDO::FETCH_ASSOC);
+
+            $nbItems = count($rows);
+
+
+            $firstItemIndex = $offset + 1;
+            if ($realPage === $nbPages) {
+                $lastItemIndex = $offset + $nbItems;
+            } else {
+                $lastItemIndex = $offset + $pageLength;
+            }
+
+            return [
+                "nbPages" => $nbPages,
+                "desiredPage" => $desiredPage,
+                "realPage" => $realPage,
+                "nbItems" => $nbItems,
+                "nbItemsTotal" => $nbItemsTotal,
+                "firstItemIndex" => $firstItemIndex,
+                "lastItemIndex" => $lastItemIndex,
+                "rows" => $rows,
             ];
         } else {
             throw new SqlFiddlerException("Invalid count query: $q2");

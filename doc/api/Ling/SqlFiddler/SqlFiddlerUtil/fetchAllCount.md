@@ -77,7 +77,7 @@ Exceptions thrown
 
 Source Code
 ===========
-See the source code for method [SqlFiddlerUtil::fetchAllCount](https://github.com/lingtalfi/SqlFiddler/blob/master/SqlFiddlerUtil.php#L289-L313)
+See the source code for method [SqlFiddlerUtil::fetchAllCount](https://github.com/lingtalfi/SqlFiddler/blob/master/SqlFiddlerUtil.php#L288-L312)
 
 
 See Also
@@ -85,5 +85,5 @@ See Also
 
 The [SqlFiddlerUtil](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil.md) class.
 
-Previous method: [getPageLength](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/getPageLength.md)<br>
+Previous method: [getPageLength](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/getPageLength.md)<br>Next method: [fetchAllCountInfo](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/fetchAllCountInfo.md)<br>
 
