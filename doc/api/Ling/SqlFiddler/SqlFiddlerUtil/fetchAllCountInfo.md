@@ -91,7 +91,7 @@ Exceptions thrown
 
 Source Code
 ===========
-See the source code for method [SqlFiddlerUtil::fetchAllCountInfo](https://github.com/lingtalfi/SqlFiddler/blob/master/SqlFiddlerUtil.php#L346-L402)
+See the source code for method [SqlFiddlerUtil::fetchAllCountInfo](https://github.com/lingtalfi/SqlFiddler/blob/master/SqlFiddlerUtil.php#L354-L410)
 
 
 See Also
@@ -99,5 +99,5 @@ See Also
 
 The [SqlFiddlerUtil](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil.md) class.
 
-Previous method: [fetchAllCount](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/fetchAllCount.md)<br>
+Previous method: [fetchAllCount](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/fetchAllCount.md)<br>Next method: [getOrderByInfo](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/getOrderByInfo.md)<br>
 

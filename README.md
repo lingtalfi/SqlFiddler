@@ -44,6 +44,10 @@ Summary
 History Log
 =============
 
+- 1.0.9 -- 2021-07-09
+
+    - rename SqlFiddlerUtil->getOrderBy method to getOrderByInfo 
+  
 - 1.0.8 -- 2021-07-09
 
     - update conception notes, add some info separation for clarity

@@ -87,7 +87,7 @@ Returns [SqlFiddlerUtil](https://github.com/lingtalfi/SqlFiddler/blob/master/doc
 
 Source Code
 ===========
-See the source code for method [SqlFiddlerUtil::setSearchExpression](https://github.com/lingtalfi/SqlFiddler/blob/master/SqlFiddlerUtil.php#L104-L110)
+See the source code for method [SqlFiddlerUtil::setSearchExpression](https://github.com/lingtalfi/SqlFiddler/blob/master/SqlFiddlerUtil.php#L109-L115)
 
 
 See Also

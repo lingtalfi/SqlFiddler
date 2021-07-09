@@ -49,7 +49,7 @@ Returns [SqlFiddlerUtil](https://github.com/lingtalfi/SqlFiddler/blob/master/doc
 
 Source Code
 ===========
-See the source code for method [SqlFiddlerUtil::setOrderByMap](https://github.com/lingtalfi/SqlFiddler/blob/master/SqlFiddlerUtil.php#L118-L122)
+See the source code for method [SqlFiddlerUtil::setOrderByMap](https://github.com/lingtalfi/SqlFiddler/blob/master/SqlFiddlerUtil.php#L123-L127)
 
 
 See Also

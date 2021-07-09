@@ -60,7 +60,7 @@ Returns int.
 
 Source Code
 ===========
-See the source code for method [SqlFiddlerUtil::getPageOffset](https://github.com/lingtalfi/SqlFiddler/blob/master/SqlFiddlerUtil.php#L225-L234)
+See the source code for method [SqlFiddlerUtil::getPageOffset](https://github.com/lingtalfi/SqlFiddler/blob/master/SqlFiddlerUtil.php#L233-L242)
 
 
 See Also

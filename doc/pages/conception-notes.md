@@ -39,7 +39,7 @@ The benefits of using the fiddler are the following:
 
 Example
 -------
-2021-07-06
+2021-07-06 -> 2021-07-09
 
 Ok, enough talking, here is how it works (example from my code):
 
@@ -47,53 +47,90 @@ Ok, enough talking, here is how it works (example from my code):
 ```php 
 
 <?php 
-
-
     /**
      * @implementation
      */
     public function getProductListItems(array $options = []): array
     {
-        
-        $search = $options['search'] ?? null;
-        $orderBy = $options['orderBy'] ?? null;
-        $page = $options['page'] ?? null;
+
+        $status = $options['status'] ?? "1";
+        $status = (int)$status; // this is a dev option, but still...
+
+
+        $search = $options['search'] ?? "";
+        $orderBy = $options['orderBy'] ?? "_default";
+        $page = $options['page'] ?? 1;
+        $pageLength = $options['pageLength'] ?? 50;
+        $itemTypes = $options['itemTypes'] ?? "*";
+        if (
+            '*' === $itemTypes
+        ) {
+            $itemTypes = [
+                1,
+                2,
+                3,
+            ];
+        }
+        $sItemTypes = PsvTool::implode(",", $itemTypes, 's');
 
 
         $u = new SqlFiddlerUtil();
-        
-
+        $orderByMap = [
+            "_default" => [
+                'i.front_importance desc, i.id asc',
+                'Featured',
+            ],
+            "price_increasing" => [
+                'i.price_in_euro asc',
+                'Price: Low to High',
+            ],
+            "price_decreasing" => [
+                'i.price_in_euro desc',
+                'Price: High to Low',
+            ],
+            "avg_rating" => [
+                't2.avg_rating desc',
+                'Avg. Customer Review',
+            ],
+            "newest" => [
+                'i.post_datetime desc',
+                "Newest",
+            ],
+        ];
         $u
             ->setSearchExpression('(
           i.label like :search or 
           i.reference like :search 
           )', 'search')
-            ->setOrderByMap([
-                "_default" => 'i.front_importance desc',
-                "newest" => 'i.post_datetime desc',
-                "price_increasing" => 'i.price_in_euro asc',
-                "price_decreasing" => 'i.price_in_euro desc',
-                "avg_rating" => 't2.avg_rating desc',
-            ])
-        ;
+            ->setOrderByMap($orderByMap);
 
 
         $markers = [];
         $sSearch = $u->getSearchExpression($search, $markers);
-        $sOrderBy = $u->getOrderBy($orderBy);
-        $iPage = $u->getPageOffset($page);
 
+        $orderByInfo = $u->getOrderByInfo($orderBy);
+        $sOrderBy = $orderByInfo['query'];
+        $orderByPublicMap = $orderByInfo['publicMap'];
+        $orderByReal = $orderByInfo['real'];
 
 
         $q = "
-select i.id, i.label, i.reference, i.price_in_euro,
-       group_concat(concat(t.rating, ':', t.nb_ratings) order by t.rating separator ', ') as nb_ratings,
-       t2.avg_rating
+select 
+
+        i.id, i.label, i.reference, i.price_in_euro, i.screenshots,
+        a.label as author_name,
+       
+       group_concat(concat(t.rating, ':', t.nb_ratings) order by t.rating separator ', ') as ratings,
+       
+       t2.avg_rating, t2.nb_ratings
+
+        -- endselect
+
 from lks_item i
     
     
     
-         left join (
+         inner join (
     select item_id,
            rating,
            count(*) as nb_ratings
@@ -102,25 +139,36 @@ from lks_item i
 ) as t on i.id = t.item_id
 
 
-         left join (
+         inner join (
     select item_id,
-           avg(rating) as avg_rating
+           avg(rating) as avg_rating,
+           count(*) as nb_ratings
     from lks_user_rates_item
     group by item_id
 ) as t2 on i.id = t2.item_id
 
+    inner join lks_author a on i.author_id = a.id
 
 where 
-      i.item_type = '1' and i.status = '1'
+      i.status = '$status'
+      and i.item_type IN ($sItemTypes)
       and $sSearch
 
 group by i.id
 order by $sOrderBy
-limit $iPage, 10
+limit 0, 1 -- endlimit
+
+
 
         ";
 
-        return $this->pdoWrapper->fetchAll($q, $markers, \PDO::FETCH_ASSOC);
+//        az($q, $markers);
+
+
+        $info = $u->fetchAllCountInfo($this->pdoWrapper, $q, $markers, $page, $pageLength, true);
+        $info['orderByPublicMap'] = $orderByPublicMap;
+        $info['orderByReal'] = $orderByReal;
+        return $info;
     }
 ```
 
@@ -136,12 +184,6 @@ The second argument to the setSearchExpression method is the marker name.
 Using markers helps prevent sql injection.
 
 The marker value is set with the call to the getSearchExpression method.
-
-
-
-Notice that all user values are either defined, or set to null.
-
-This is a convention used by the fiddler. It makes it easy to define the user parameters.
 
 
 

@@ -16,15 +16,14 @@ Description
 ================
 
 
-public [SqlFiddlerUtil::getOrderBy](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/getOrderBy.md)(?string $userChoice = null) : string
+public [SqlFiddlerUtil::getOrderBy](https://github.com/lingtalfi/SqlFiddler/blob/master/doc/api/Ling/SqlFiddler/SqlFiddlerUtil/getOrderBy.md)(string $userChoice, ?string $default = _default, ?bool $throwEx = false) : string
 
 
 
 
 Returns the "order by" snippet to insert in your query.
-If userChoice is null, the "_default" value from the orderBy map is returned.
 
-Throws an exception if no value matches the given userChoice.
+If the userChoice is not found in the orderByMap, we use the given default choice, or we throw an exception if the throwEx flag is raised.
 
 
 
@@ -34,6 +33,14 @@ Parameters
 
 
 - userChoice
+
+    
+
+- default
+
+    
+
+- throwEx
 
     
 
@@ -57,7 +64,7 @@ Exceptions thrown
 
 Source Code
 ===========
-See the source code for method [SqlFiddlerUtil::getOrderBy](https://github.com/lingtalfi/SqlFiddler/blob/master/SqlFiddlerUtil.php#L198-L207)
+See the source code for method [SqlFiddlerUtil::getOrderBy](https://github.com/lingtalfi/SqlFiddler/blob/master/SqlFiddlerUtil.php#L205-L215)
 
 
 See Also

@@ -34,6 +34,11 @@ class SqlFiddlerUtil
     /**
      * This property holds the orderByMap for this instance.
      * You must define the default value using the _default key.
+     * It's an array of key => items, where each item is an array of:
+     * - 0: the sql expression to use in the query
+     * - 1: the label to display in a gui select
+     *
+     *
      * @var array
      */
     private array $orderByMap;
@@ -187,23 +192,26 @@ class SqlFiddlerUtil
 
     /**
      * Returns the "order by" snippet to insert in your query.
-     * If userChoice is null, the "_default" value from the orderBy map is returned.
      *
-     * Throws an exception if no value matches the given userChoice.
+     * If the userChoice is not found in the orderByMap, we use the given default choice, or we throw an exception if the throwEx flag is raised.
      *
-     * @param string|null $userChoice
+     *
+     * @param string $userChoice
+     * @param string $default
+     * @param bool $throwEx
      * @return string
      * @throws \Exception
      */
-    public function getOrderBy(string $userChoice = null): string
+    public function getOrderBy(string $userChoice, string $default = "_default", bool $throwEx = false): string
     {
-        if (null === $userChoice) {
-            $userChoice = "_default";
+        if (false === array_key_exists($userChoice, $this->orderByMap)) {
+            if (true === $throwEx) {
+                throw new SqlFiddlerException("No value found in the orderBy map for user choice $userChoice.");
+            }
+            $userChoice = $default;
         }
-        if (true === array_key_exists($userChoice, $this->orderByMap)) {
-            return $this->orderByMap[$userChoice];
-        }
-        throw new SqlFiddlerException("No value found in the orderBy map for user choice $userChoice.");
+        return $this->orderByMap[$userChoice];
+
     }
 
 
@@ -401,4 +409,38 @@ class SqlFiddlerUtil
         }
     }
 
+
+    /**
+     * Returns an array of information related to the orderBy field.
+     * The returned array contains the following:
+     * - query: string, the orderBy clause (without the "order by" keyword) to insert in your sql query
+     * - publicMap: array, an array of orderBy key => label, to use in a select on the front website for instance
+     * - real: string, the "order by" key really used by the query (since the user might provide an unexpected value).
+     *      Note: if the user provides a value that doesn't exist in the orderByMap, we use the "_default" orderby key
+     *      by default.
+     *
+     *
+     *
+     * @param string $desiredOrderBy
+     * @return array
+     */
+    public function getOrderByInfo(string $desiredOrderBy): array
+    {
+        if (false === array_key_exists($desiredOrderBy, $this->orderByMap)) {
+            if (false === array_key_exists("_default", $this->orderByMap)) {
+                throw new SqlFiddlerException("Undefined _default key for order by.");
+            }
+            $desiredOrderBy = "_default";
+        }
+        $query = $this->orderByMap[$desiredOrderBy][0];
+        $publicMap = [];
+        foreach ($this->orderByMap as $k => $item) {
+            $publicMap[$k] = $item[1];
+        }
+        return [
+            "query" => $query,
+            "publicMap" => $publicMap,
+            "real" => $desiredOrderBy,
+        ];
+    }
 }

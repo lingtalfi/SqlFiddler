@@ -55,7 +55,7 @@ Returns int.
 
 Source Code
 ===========
-See the source code for method [SqlFiddlerUtil::getPageLength](https://github.com/lingtalfi/SqlFiddler/blob/master/SqlFiddlerUtil.php#L250-L259)
+See the source code for method [SqlFiddlerUtil::getPageLength](https://github.com/lingtalfi/SqlFiddler/blob/master/SqlFiddlerUtil.php#L258-L267)
 
 
 See Also
