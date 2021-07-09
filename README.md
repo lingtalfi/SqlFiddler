@@ -44,6 +44,10 @@ Summary
 History Log
 =============
 
+- 1.0.8 -- 2021-07-09
+
+    - update conception notes, add some info separation for clarity
+  
 - 1.0.7 -- 2021-07-09
 
     - add SqlFiddlerUtil-fetchAllCountInfo method
