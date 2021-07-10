@@ -1,6 +1,6 @@
 SqlFiddler
 ===========
-2021-07-06 -> 2021-07-09
+2021-07-06 -> 2021-07-11
 
 
 
@@ -44,6 +44,10 @@ Summary
 History Log
 =============
 
+- 1.0.10 -- 2021-07-11
+
+    - fix SqlFiddlerUtil->fetchAllCountInfo incorrect offset in some cases 
+  
 - 1.0.9 -- 2021-07-09
 
     - rename SqlFiddlerUtil->getOrderBy method to getOrderByInfo 

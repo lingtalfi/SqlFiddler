@@ -363,6 +363,7 @@ class SqlFiddlerUtil
 
 
         $res = $pdoWrapper->fetch($q2, $markers, \PDO::FETCH_ASSOC);
+
         if (false !== $res) {
             $nbItemsTotal = (int)$res['count'];
 
@@ -372,16 +373,19 @@ class SqlFiddlerUtil
             if ($realPage < 1) {
                 $realPage = 1;
             }
-            if ($realPage > $nbPages) {
+            if (0 !== $nbPages && $realPage > $nbPages) {
                 $realPage = $nbPages;
             }
 
             $offset = ($realPage - 1) * $pageLength;
 
+
             $limit = "$offset, $pageLength";
 
 
             $q1 = preg_replace('!limit .*-- ?endlimit!isU', "limit $limit", $preparedQuery);
+
+
             $rows = $pdoWrapper->fetchAll($q1, $markers, \PDO::FETCH_ASSOC);
 
             $nbItems = count($rows);

@@ -55,7 +55,7 @@ Returns array.
 
 Source Code
 ===========
-See the source code for method [SqlFiddlerUtil::getOrderByInfo](https://github.com/lingtalfi/SqlFiddler/blob/master/SqlFiddlerUtil.php#L427-L445)
+See the source code for method [SqlFiddlerUtil::getOrderByInfo](https://github.com/lingtalfi/SqlFiddler/blob/master/SqlFiddlerUtil.php#L431-L449)
 
 
 See Also

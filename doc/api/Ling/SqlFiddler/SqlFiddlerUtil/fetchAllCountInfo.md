@@ -91,7 +91,7 @@ Exceptions thrown
 
 Source Code
 ===========
-See the source code for method [SqlFiddlerUtil::fetchAllCountInfo](https://github.com/lingtalfi/SqlFiddler/blob/master/SqlFiddlerUtil.php#L354-L410)
+See the source code for method [SqlFiddlerUtil::fetchAllCountInfo](https://github.com/lingtalfi/SqlFiddler/blob/master/SqlFiddlerUtil.php#L354-L414)
 
 
 See Also
