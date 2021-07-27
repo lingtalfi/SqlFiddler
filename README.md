@@ -1,6 +1,6 @@
 SqlFiddler
 ===========
-2021-07-06 -> 2021-07-11
+2021-07-06 -> 2021-07-27
 
 
 
@@ -44,6 +44,10 @@ Summary
 History Log
 =============
 
+- 1.0.11 -- 2021-07-11
+
+    - update conception notes, add "list super useful info" concept 
+  
 - 1.0.10 -- 2021-07-11
 
     - fix SqlFiddlerUtil->fetchAllCountInfo incorrect offset in some cases 

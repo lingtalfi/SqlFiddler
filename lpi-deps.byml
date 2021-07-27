@@ -20,3 +20,6 @@
 
 1.0.10: 
     - Ling:SimplePdoWrapper:1.30.21
+
+1.0.11: 
+    - Ling:SimplePdoWrapper:1.30.23

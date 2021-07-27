@@ -1,6 +1,6 @@
 SqlFiddler, conception notes
 ================
-2021-07-06 -> 2021-07-09
+2021-07-06 -> 2021-07-27
 
 
 A tool to help when writing sql queries where the user can opt-in some parts.
@@ -332,6 +332,24 @@ The list useful information
 
 
 The **list useful information** is a word that describes the return of the [fetchAllCountInfo](#fetchallcountinfo-method) method.
+
+
+
+The list super useful information
+-----------
+2021-07-27
+
+
+The **list super useful information** is like the [list useful information](#the-list-useful-information), but it contains
+more properties to it:
+
+- orderByPublicMap: an array of key => label. The keys can be used to trigger different sorting of the query.
+     The label is just a human friendly string describing the effect of the sort.
+  
+- orderByReal: string, the orderBy really used by the query. That's because the user can give us unexpected orderby values.
+
+
+
 
 
 
